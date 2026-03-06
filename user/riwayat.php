@@ -22,19 +22,29 @@ require_once 'header.php';
                 <tbody>
                     <?php
 $id_user = $_SESSION['user_id'];
-// Use a more robust join and check for column existence if needed
+
+// Case-sensitivity and existence check for different server configurations
+$table_check = mysqli_query($conn, "SHOW TABLES LIKE 'transaksi'");
+if (mysqli_num_rows($table_check) == 0) {
+    $table_check_alt = mysqli_query($conn, "SHOW TABLES LIKE 'Transaksi'");
+    $table_name = (mysqli_num_rows($table_check_alt) > 0) ? 'Transaksi' : 'transaksi';
+}
+else {
+    $table_name = 'transaksi';
+}
+
 $query_text = "SELECT t.*, b.judul 
-                                  FROM transaksi t 
+                                  FROM $table_name t 
                                   LEFT JOIN buku b ON t.id_buku = b.id_buku 
                                   WHERE t.id_user = $id_user 
                                   ORDER BY t.id_transaksi DESC";
 
-$result = mysqli_query($conn, $query_text);
+$result = @mysqli_query($conn, $query_text);
 $no = 1;
 
 if ($result && mysqli_num_rows($result) > 0):
-    while ($row = mysqli_fetch_assoc($result)):
-        // Safety for missing title
+    while ($row_raw = mysqli_fetch_assoc($result)):
+        $row = array_change_key_case($row_raw, CASE_LOWER);
         $judul = $row['judul'] ?? 'Buku Tidak Terdata';
         $status = $row['status'] ?? 'dipinjam';
 ?>
