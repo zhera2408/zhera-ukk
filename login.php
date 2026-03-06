@@ -20,13 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($conn, $query);
 
-    if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['user_id'] = $row['id_user'];
-        $_SESSION['nama'] = $row['nama'];
-        $_SESSION['role'] = $row['role'];
+    if (mysqli_num_rows($result) >= 1) {
+        $row_raw = mysqli_fetch_assoc($result);
+        // Normalize column keys to lowercase to be case-insensitive
+        $row = array_change_key_case($row_raw, CASE_LOWER);
 
-        if ($row['role'] == 'admin') {
+        $_SESSION['user_id'] = $row['id_user'] ?? $row['id'] ?? null;
+        $_SESSION['nama'] = $row['nama'] ?? $row['username'] ?? 'User';
+        $_SESSION['role'] = $row['role'] ?? 'user';
+
+        if ($_SESSION['role'] == 'admin') {
             header("Location: " . base_url('admin/index.php'));
         }
         else {

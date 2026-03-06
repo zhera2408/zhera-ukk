@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 
 $db_host = getenv('DB_HOST') ?: 'localhost';
 $db_user = getenv('DB_USER') ?: 'root';
