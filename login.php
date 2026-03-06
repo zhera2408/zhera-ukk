@@ -113,7 +113,7 @@ endif; ?>
                 <button type="submit" class="btn btn-primary">Masuk</button>
             </form>
              <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #64748b;">
-                Belum punya akun? <a href="register.php" style="color: #ebadfaff; text-decoration: none; font-weight: 600;">Daftar disini</a>
+                Belum punya akun? <a href="<?= base_url('register.php'); ?>" style="color: #ebadfaff; text-decoration: none; font-weight: 600;">Daftar disini</a>
             </div>
         </div>
     </div>
