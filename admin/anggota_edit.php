@@ -4,7 +4,7 @@ require_once 'header.php';
 
 
 if (!isset($_GET['id'])) {
-    header("Location: anggota.php");
+    header("Location: " . base_url('admin/anggota.php'));
     exit();
 }
 
@@ -14,7 +14,7 @@ $result = mysqli_query($conn, $query);
 $data = mysqli_fetch_assoc($result);
 
 if (!$data) {
-    echo "<script>alert('Data tidak ditemukan!'); window.location='anggota.php';</script>";
+    echo "<script>alert('Data tidak ditemukan!'); window.location='" . base_url('admin/anggota.php') . "';</script>";
     exit();
 }
 
@@ -27,7 +27,7 @@ if (isset($_POST['edit'])) {
     if ($username != $data['username']) {
         $cek = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
         if (mysqli_num_rows($cek) > 0) {
-            echo "<script>alert('Username sudah ada!'); window.location='anggota_edit.php?id=$id';</script>";
+            echo "<script>alert('Username sudah ada!'); window.location='" . base_url('admin/anggota_edit.php?id=' . $id) . "';</script>";
             exit();
         }
     }
@@ -41,7 +41,7 @@ if (isset($_POST['edit'])) {
     }
 
     if (mysqli_query($conn, $query_update)) {
-        echo "<script>alert('Data berhasil diupdate!'); window.location='anggota.php';</script>";
+        echo "<script>alert('Data berhasil diupdate!'); window.location='" . base_url('admin/anggota.php') . "';</script>";
     }
     else {
         echo "<script>alert('Gagal mengupdate data!');</script>";
@@ -52,7 +52,7 @@ if (isset($_POST['edit'])) {
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Edit User</h3>
-        <a href="anggota.php" class="btn btn-danger btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="<?= base_url('admin/anggota.php'); ?>" class="btn btn-danger btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
     </div>
     <div class="card-body">
         <form action="" method="POST">
