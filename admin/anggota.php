@@ -1,0 +1,53 @@
+<?php require_once 'header.php'; ?>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Data User</h3>
+        <a href="anggota_tambah.php" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah User</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Lengkap</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+$no = 1;
+$query = "SELECT * FROM users ORDER BY id_user DESC";
+$result = mysqli_query($conn, $query);
+while ($row = mysqli_fetch_assoc($result)):
+?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= htmlspecialchars($row['nama']); ?></td>
+                        <td><?= htmlspecialchars($row['username']); ?></td>
+                        <td>
+                            <?php if ($row['role'] == 'admin'): ?>
+                                <span class="badge badge-danger">Admin</span>
+                            <?php
+    else: ?>
+                                <span class="badge badge-success">User</span>
+                            <?php
+    endif; ?>
+                        </td>
+                        <td>
+                            <a href="anggota_edit.php?id=<?= $row['id_user']; ?>" class="btn btn-primary btn-sm" style="background-color: var(--accent-color);"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="anggota_hapus.php?id=<?= $row['id_user']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?')"><i class="fas fa-trash"></i> Hapus</a>
+                        </td>
+                    </tr>
+                    <?php
+endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<?php require_once 'footer.php'; ?>
