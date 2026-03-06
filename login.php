@@ -3,10 +3,10 @@ require_once 'config.php';
 
 if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] == 'admin') {
-        header("Location: admin/index.php");
+        header("Location: " . base_url('admin/index.php'));
     }
     else {
-        header("Location: user/index.php");
+        header("Location: " . base_url('user/index.php'));
     }
     exit();
 }
@@ -27,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['role'] = $row['role'];
 
         if ($row['role'] == 'admin') {
-            header("Location: admin/index.php");
+            header("Location: " . base_url('admin/index.php'));
         }
         else {
-            header("Location: user/index.php");
+            header("Location: " . base_url('user/index.php'));
         }
         exit();
     }
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Perpustakaan Digital</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css'); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
