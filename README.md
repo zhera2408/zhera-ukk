@@ -35,15 +35,15 @@ Saya telah menambahkan file `vercel.json` dan memperbarui `config.php` agar mend
 2.  Klik **"Add New"** > **"Project"**.
 3.  Impor repositori dari GitHub Anda.
 4.  Di bagian **Environment Variables**, tambahkan variabel berikut:
-    -   `DB_HOST`: Alamat host dari Aiven.
-    -   `DB_PORT`: Port dari Aiven (biasanya `10000+`).
-    -   `DB_USER`: Username dari Aiven.
-    -   `DB_PASS`: Password dari Aiven.
-    -   `DB_NAME`: Nama database (misal: `defaultdb`).
-    -   `BASE_URL`: URL aplikasi Anda di Vercel (misal: `https://peminjamanbuku-zhera.vercel.app/`).
-    -   `DB_SSL_CA` (Opsional): Input value sertifikat SSL jika database Aiven Anda mewajibkan SSL.
-
+    -   `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASS`, `DB_NAME`
+    -   `BASE_URL`: URL Vercel Anda (misal: `https://peminjamanbuku-zhera.vercel.app/`).
+    -   `DB_SSL_CA`: (Opsional) Input sertifikat SSL Aiven jika diperlukan.
 5.  Klik **Deploy**.
+
+## ☁️ Fitur Cloud-Ready
+-   **Base URL System**: Seluruh link internal, aset (CSS, JS, Gambar), dan redirect telah menggunakan `base_url()`.
+-   **SSL Native Support**: Koneksi database mendukung SSL secara otomatis.
+-   **Environment Driven**: Keamanan data terjamin tanpa hardcoding.
 
 ## Catatan Penting
 -   **File Uploads**: Karena Vercel adalah platform serverless, file yang diunggah (seperti cover buku) akan bersifat **sementara**.

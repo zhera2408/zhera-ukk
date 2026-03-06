@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Data Buku</h3>
-        <a href="buku_tambah.php" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Buku</a>
+        <a href="<?= base_url('admin/buku_tambah.php'); ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Buku</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -31,7 +31,7 @@ while ($row = mysqli_fetch_assoc($result)):
                         <td><?= $no++; ?></td>
                         <td>
                             <?php if ($row['cover']): ?>
-                                <img src="../assets/img/<?= htmlspecialchars($row['cover']); ?>" alt="Cover" style="width: 50px; height: 75px; object-fit: cover; border-radius: 4px;">
+                                <img src="<?= base_url('assets/img/' . htmlspecialchars($row['cover'])); ?>" alt="Cover" style="width: 50px; height: 75px; object-fit: cover; border-radius: 4px;">
                             <?php
     else: ?>
                                 <div style="width: 50px; height: 75px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 4px; color: #64748b; font-size: 0.8rem;">No Cover</div>
@@ -48,8 +48,8 @@ while ($row = mysqli_fetch_assoc($result)):
                             </span>
                         </td>
                         <td>
-                            <a href="buku_edit.php?id=<?= $row['id_buku']; ?>" class="btn btn-primary btn-sm" style="background-color: var(--accent-color);"><i class="fas fa-edit"></i></a>
-                            <a href="buku_hapus.php?id=<?= $row['id_buku']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus buku ini?')" style="background-color: var(--danger-color);"><i class="fas fa-trash"></i></a>
+                            <a href="<?= base_url('admin/buku_edit.php?id=' . $row['id_buku']); ?>" class="btn btn-primary btn-sm" style="background-color: var(--accent-color);"><i class="fas fa-edit"></i></a>
+                            <a href="<?= base_url('admin/buku_hapus.php?id=' . $row['id_buku']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus buku ini?')" style="background-color: var(--danger-color);"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                     <?php

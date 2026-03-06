@@ -4,7 +4,7 @@ require_once 'header.php';
 
 
 if (!isset($_GET['id'])) {
-    header("Location: buku.php");
+    header("Location: " . base_url('admin/buku.php'));
     exit();
 }
 
@@ -14,7 +14,7 @@ $result = mysqli_query($conn, $query);
 $data = mysqli_fetch_assoc($result);
 
 if (!$data) {
-    echo "<script>alert('Data tidak ditemukan!'); window.location='buku.php';</script>";
+    echo "<script>alert('Data tidak ditemukan!'); window.location='" . base_url('admin/buku.php') . "';</script>";
     exit();
 }
 
@@ -50,7 +50,7 @@ if (isset($_POST['edit'])) {
     $query_update = "UPDATE buku SET judul='$judul', pengarang='$pengarang', penerbit='$penerbit', tahun_terbit='$tahun', stok='$stok', cover='$cover' WHERE id_buku=$id";
 
     if (mysqli_query($conn, $query_update)) {
-        echo "<script>alert('Buku berhasil diupdate!'); window.location='buku.php';</script>";
+        echo "<script>alert('Buku berhasil diupdate!'); window.location='" . base_url('admin/buku.php') . "';</script>";
     }
     else {
         echo "<script>alert('Gagal mengupdate buku: " . mysqli_error($conn) . "');</script>";
@@ -61,7 +61,7 @@ if (isset($_POST['edit'])) {
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Edit Buku</h3>
-        <a href="buku.php" class="btn btn-danger btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="<?= base_url('admin/buku.php'); ?>" class="btn btn-danger btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
     </div>
     <div class="card-body">
         <form action="" method="POST" enctype="multipart/form-data">
@@ -91,7 +91,7 @@ if (isset($_POST['edit'])) {
                 <label class="form-label">Cover Buku</label>
                 <?php if ($data['cover']): ?>
                     <div style="margin-bottom: 0.5rem;">
-                        <img src="../assets/img/<?= $data['cover']; ?>" alt="Cover Saat Ini" style="width: 80px; height: 120px; object-fit: cover; border-radius: 4px;">
+                        <img src="<?= base_url('assets/img/' . $data['cover']); ?>" alt="Cover Saat Ini" style="width: 80px; height: 120px; object-fit: cover; border-radius: 4px;">
                     </div>
                 <?php
 endif; ?>
