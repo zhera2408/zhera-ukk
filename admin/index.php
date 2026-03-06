@@ -8,7 +8,7 @@
         <p>Selamat datang di halaman administrator. Anda dapat mengelola data buku, user, dan peminjaman di sini.</p>
         
         <div class="stats-grid" style="margin-top: 2rem;">
-            <a href="anggota.php" class="stat-card">
+            <a href="<?= base_url('admin/anggota.php'); ?>" class="stat-card">
                 <div class="stat-info">
                     <h3>
                         <?php
@@ -23,7 +23,7 @@ echo $users_count;
                 </div>
             </a>
 
-            <a href="buku.php" class="stat-card">
+            <a href="<?= base_url('admin/buku.php'); ?>" class="stat-card">
                 <div class="stat-info">
                     <h3>
                         <?php
@@ -38,7 +38,7 @@ echo $books_count;
                 </div>
             </a>
 
-            <a href="peminjaman.php" class="stat-card">
+            <a href="<?= base_url('admin/peminjaman.php'); ?>" class="stat-card">
                 <div class="stat-info">
                     <h3>
                         <?php
@@ -53,7 +53,7 @@ echo $loans_count;
                 </div>
             </a>
 
-            <a href="peminjaman.php" class="stat-card">
+            <a href="<?= base_url('admin/peminjaman.php'); ?>" class="stat-card">
                 <div class="stat-info">
                     <h3>
                         <?php

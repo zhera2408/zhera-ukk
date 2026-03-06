@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Data User</h3>
-        <a href="anggota_tambah.php" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah User</a>
+        <a href="<?= base_url('admin/anggota_tambah.php'); ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah User</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -38,8 +38,8 @@ while ($row = mysqli_fetch_assoc($result)):
     endif; ?>
                         </td>
                         <td>
-                            <a href="anggota_edit.php?id=<?= $row['id_user']; ?>" class="btn btn-primary btn-sm" style="background-color: var(--accent-color);"><i class="fas fa-edit"></i> Edit</a>
-                            <a href="anggota_hapus.php?id=<?= $row['id_user']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?')"><i class="fas fa-trash"></i> Hapus</a>
+                            <a href="<?= base_url('admin/anggota_edit.php?id=' . $row['id_user']); ?>" class="btn btn-primary btn-sm" style="background-color: var(--accent-color);"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="<?= base_url('admin/anggota_hapus.php?id=' . $row['id_user']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?')"><i class="fas fa-trash"></i> Hapus</a>
                         </td>
                     </tr>
                     <?php

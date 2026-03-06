@@ -19,7 +19,7 @@ if (isset($_POST['tambah'])) {
         if (mysqli_query($conn, $query)) {
             // Kurangi stok
             mysqli_query($conn, "UPDATE buku SET stok = stok - 1 WHERE id_buku = $id_buku");
-            echo "<script>alert('Peminjaman berhasil ditambahkan!'); window.location='peminjaman.php';</script>";
+            echo "<script>alert('Peminjaman berhasil ditambahkan!'); window.location='" . base_url('admin/peminjaman.php') . "';</script>";
         }
         else {
             echo "<script>alert('Gagal menambahkan peminjaman: " . mysqli_error($conn) . "');</script>";
@@ -34,7 +34,7 @@ if (isset($_POST['tambah'])) {
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Tambah Peminjaman</h3>
-        <a href="peminjaman.php" class="btn btn-danger btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="<?= base_url('admin/peminjaman.php'); ?>" class="btn btn-danger btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
     </div>
     <div class="card-body">
         <form action="" method="POST">

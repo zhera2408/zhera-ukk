@@ -34,7 +34,7 @@ if (isset($_POST['tambah'])) {
     $query = "INSERT INTO buku (judul, pengarang, penerbit, tahun_terbit, stok, cover) VALUES ('$judul', '$pengarang', '$penerbit', '$tahun', '$stok', '$cover')";
 
     if (mysqli_query($conn, $query)) {
-        echo "<script>alert('Buku berhasil ditambahkan!'); window.location='buku.php';</script>";
+        echo "<script>alert('Buku berhasil ditambahkan!'); window.location='" . base_url('admin/buku.php') . "';</script>";
     }
     else {
         echo "<script>alert('Gagal menambahkan buku: " . mysqli_error($conn) . "');</script>";
@@ -45,7 +45,7 @@ if (isset($_POST['tambah'])) {
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Tambah Buku</h3>
-        <a href="buku.php" class="btn btn-danger btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="<?= base_url('admin/buku.php'); ?>" class="btn btn-danger btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
     </div>
     <div class="card-body">
         <form action="" method="POST" enctype="multipart/form-data">

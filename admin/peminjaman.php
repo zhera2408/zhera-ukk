@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Data Peminjaman</h3>
-        <a href="transaksi_tambah.php" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Peminjaman</a>
+        <a href="<?= base_url('admin/transaksi_tambah.php'); ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Peminjaman</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -47,7 +47,7 @@ while ($row = mysqli_fetch_assoc($result)):
                         </td>
                         <td>
                             <?php if ($row['status'] == 'dipinjam'): ?>
-                                <a href="transaksi_kembali.php?id=<?= $row['id_transaksi']; ?>" class="btn btn-success btn-sm" onclick="return confirm('Konfirmasi pengembalian buku?')" style="background-color: var(--success-color);"><i class="fas fa-check"></i> Kembalikan</a>
+                                <a href="<?= base_url('admin/transaksi_kembali.php?id=' . $row['id_transaksi']); ?>" class="btn btn-success btn-sm" onclick="return confirm('Konfirmasi pengembalian buku?')" style="background-color: var(--success-color);"><i class="fas fa-check"></i> Kembalikan</a>
                             <?php
     else: ?>
                                 <span style="color: var(--text-secondary); font-size: 0.9rem;">Selesai</span>

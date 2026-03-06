@@ -20,10 +20,10 @@ if (isset($_GET['id'])) {
         // Return stock
         mysqli_query($conn, "UPDATE buku SET stok = stok + 1 WHERE id_buku = $id_buku");
 
-        echo "<script>alert('Buku berhasil dikembalikan!'); window.location='peminjaman.php';</script>";
+        echo "<script>alert('Buku berhasil dikembalikan!'); window.location='" . base_url('admin/peminjaman.php') . "';</script>";
         exit;
     }
 }
 
-header("Location: peminjaman.php");
+header("Location: " . base_url('admin/peminjaman.php'));
 ?>

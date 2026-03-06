@@ -17,7 +17,7 @@ if (isset($_POST['tambah'])) {
     else {
         $query = "INSERT INTO users (nama, username, password, role) VALUES ('$nama', '$username', '$password', '$role')";
         if (mysqli_query($conn, $query)) {
-            echo "<script>alert('Data berhasil ditambahkan!'); window.location='anggota.php';</script>";
+            echo "<script>alert('Data berhasil ditambahkan!'); window.location='" . base_url('admin/anggota.php') . "';</script>";
         }
         else {
             echo "<script>alert('Gagal menambahkan data!');</script>";
@@ -29,7 +29,7 @@ if (isset($_POST['tambah'])) {
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Tambah User</h3>
-        <a href="anggota.php" class="btn btn-danger btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="<?= base_url('admin/anggota.php'); ?>" class="btn btn-danger btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
     </div>
     <div class="card-body">
         <form action="" method="POST">
