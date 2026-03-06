@@ -24,7 +24,24 @@ if (!$conn || mysqli_connect_errno()) {
 }
 
 // Base URL configuration
-$base_url = getenv('BASE_URL') ?: 'http://localhost/peminjamanbuku_zhera/';
+if (getenv('BASE_URL')) {
+    $base_url = getenv('BASE_URL');
+}
+else {
+    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+
+    // Detect project root relative to document root
+    if (isset($_SERVER['DOCUMENT_ROOT']) && isset($_SERVER['SCRIPT_FILENAME'])) {
+        $project_root = str_replace('\\', '/', dirname(__FILE__));
+        $doc_root = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
+        $url_path = str_replace($doc_root, '', $project_root);
+        $base_url = "$protocol://$host" . rtrim($url_path, '/') . '/';
+    }
+    else {
+        $base_url = "$protocol://$host/";
+    }
+}
 $base_url = rtrim($base_url, '/') . '/';
 
 function base_url($path = '')
