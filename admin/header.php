@@ -9,7 +9,7 @@ check_admin();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin</title>
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.0'); ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.2'); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -24,7 +24,7 @@ $current_page = basename(parse_url($_SERVER['REQUEST_URI'] ?? 'index.php', PHP_U
 if ($current_page == 'admin' || $current_page == '')
     $current_page = 'index.php';
 ?>
-                <li><a href="<?= base_url('admin/index.php'); ?>" class="<?=($current_page == 'index.php') ? 'active' : ''; ?>"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="<?= base_url('admin/index.php'); ?>" class="<?=($current_page == 'index.php') ? 'active' : ''; ?>"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li><a href="<?= base_url('admin/anggota.php'); ?>" class="<?=(strpos($current_page, 'anggota') !== false) ? 'active' : ''; ?>"><i class="fas fa-users"></i> Data User</a></li>
                 <li><a href="<?= base_url('admin/buku.php'); ?>" class="<?=(strpos($current_page, 'buku') !== false) ? 'active' : ''; ?>"><i class="fas fa-book"></i> Data Buku</a></li>
                 <li><a href="<?= base_url('admin/peminjaman.php'); ?>" class="<?=(strpos($current_page, 'peminjaman') !== false || strpos($current_page, 'transaksi') !== false) ? 'active' : ''; ?>"><i class="fas fa-clipboard-list"></i> Peminjaman</a></li>

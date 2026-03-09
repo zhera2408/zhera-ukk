@@ -1,10 +1,8 @@
 <?php require_once 'header.php'; ?>
 
 <div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Selamat Datang</h3>
-    </div>
     <div class="card-body">
+        <h3 style="color: var(--text-primary); margin-bottom: 1.5rem; font-weight: 600;">Selamat Datang</h3>
         <p>Selamat datang di halaman administrator. Anda dapat mengelola data buku, user, dan peminjaman di sini.</p>
         
         <div class="stats-grid" style="margin-top: 2rem;">
