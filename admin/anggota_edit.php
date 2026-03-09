@@ -11,7 +11,8 @@ if (!isset($_GET['id'])) {
 $id = (int)$_GET['id'];
 $query = "SELECT * FROM users WHERE id_user = $id";
 $result = mysqli_query($conn, $query);
-$data = mysqli_fetch_assoc($result);
+$data_raw = mysqli_fetch_assoc($result);
+$data = $data_raw ? array_change_key_case($data_raw, CASE_LOWER) : null;
 
 if (!$data) {
     echo "<script>alert('Data tidak ditemukan!'); window.location='" . base_url('admin/anggota.php') . "';</script>";
@@ -24,7 +25,7 @@ if (isset($_POST['edit'])) {
     $role = $_POST['role'];
 
     // Cek jika username diubah dan sudah ada yang pakai
-    if ($username != $data['username']) {
+    if ($username != ($data['username'] ?? '')) {
         $cek = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
         if (mysqli_num_rows($cek) > 0) {
             echo "<script>alert('Username sudah ada!'); window.location='" . base_url('admin/anggota_edit.php?id=' . $id) . "';</script>";
@@ -58,11 +59,11 @@ if (isset($_POST['edit'])) {
         <form action="" method="POST">
             <div class="form-group">
                 <label class="form-label">Nama Lengkap</label>
-                <input type="text" name="nama" class="form-control" value="<?= htmlspecialchars($data['nama']); ?>" required>
+                <input type="text" name="nama" class="form-control" value="<?= htmlspecialchars($data['nama'] ?? ''); ?>" required>
             </div>
             <div class="form-group">
                 <label class="form-label">Username</label>
-                <input type="text" name="username" class="form-control" value="<?= htmlspecialchars($data['username']); ?>" required>
+                <input type="text" name="username" class="form-control" value="<?= htmlspecialchars($data['username'] ?? ''); ?>" required>
             </div>
             <div class="form-group">
                 <label class="form-label">Password</label>
@@ -72,8 +73,8 @@ if (isset($_POST['edit'])) {
             <div class="form-group">
                 <label class="form-label">Role</label>
                 <select name="role" class="form-control" required>
-                    <option value="admin" <?= $data['role'] == 'admin' ? 'selected' : ''; ?>>Admin</option>
-                    <option value="user" <?= $data['role'] == 'user' ? 'selected' : ''; ?>>User</option>
+                    <option value="admin" <?=($data['role'] ?? '') == 'admin' ? 'selected' : ''; ?>>Admin</option>
+                    <option value="user" <?=($data['role'] ?? 'user') == 'user' ? 'selected' : ''; ?>>User</option>
                 </select>
             </div>
             <button type="submit" name="edit" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>

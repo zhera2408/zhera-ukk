@@ -11,7 +11,8 @@ if (!isset($_GET['id'])) {
 $id = (int)$_GET['id'];
 $query = "SELECT * FROM buku WHERE id_buku = $id";
 $result = mysqli_query($conn, $query);
-$data = mysqli_fetch_assoc($result);
+$data_raw = mysqli_fetch_assoc($result);
+$data = $data_raw ? array_change_key_case($data_raw, CASE_LOWER) : null;
 
 if (!$data) {
     echo "<script>alert('Data tidak ditemukan!'); window.location='" . base_url('admin/buku.php') . "';</script>";
@@ -67,29 +68,29 @@ if (isset($_POST['edit'])) {
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label class="form-label">Judul Buku</label>
-                <input type="text" name="judul" class="form-control" value="<?= htmlspecialchars($data['judul']); ?>" required>
+                <input type="text" name="judul" class="form-control" value="<?= htmlspecialchars($data['judul'] ?? ''); ?>" required>
             </div>
             <div class="form-group">
                 <label class="form-label">Pengarang</label>
-                <input type="text" name="pengarang" class="form-control" value="<?= htmlspecialchars($data['pengarang']); ?>" required>
+                <input type="text" name="pengarang" class="form-control" value="<?= htmlspecialchars($data['pengarang'] ?? ''); ?>" required>
             </div>
             <div class="form-group">
                 <label class="form-label">Penerbit</label>
-                <input type="text" name="penerbit" class="form-control" value="<?= htmlspecialchars($data['penerbit']); ?>" required>
+                <input type="text" name="penerbit" class="form-control" value="<?= htmlspecialchars($data['penerbit'] ?? ''); ?>" required>
             </div>
             <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                 <div>
                     <label class="form-label">Tahun Terbit</label>
-                    <input type="number" name="tahun_terbit" class="form-control" value="<?= htmlspecialchars($data['tahun_terbit']); ?>" required min="1900" max="<?= date('Y'); ?>">
+                    <input type="number" name="tahun_terbit" class="form-control" value="<?= htmlspecialchars($data['tahun_terbit'] ?? ''); ?>" required min="1900" max="<?= date('Y'); ?>">
                 </div>
                 <div>
                     <label class="form-label">Stok</label>
-                    <input type="number" name="stok" class="form-control" value="<?= htmlspecialchars($data['stok']); ?>" required min="0">
+                    <input type="number" name="stok" class="form-control" value="<?= htmlspecialchars($data['stok'] ?? 0); ?>" required min="0">
                 </div>
             </div>
             <div class="form-group">
                 <label class="form-label">Cover Buku</label>
-                <?php if ($data['cover']): ?>
+                <?php if ($data['cover'] ?? ''): ?>
                     <div style="margin-bottom: 0.5rem;">
                         <img src="<?= base_url('assets/img/' . $data['cover']); ?>" alt="Cover Saat Ini" style="width: 80px; height: 120px; object-fit: cover; border-radius: 4px;">
                     </div>

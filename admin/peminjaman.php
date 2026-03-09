@@ -35,12 +35,13 @@ catch (Exception $e) {
 }
 
 if ($result):
-    while ($row = mysqli_fetch_assoc($result)):
+    while ($row_raw = mysqli_fetch_assoc($result)):
+        $row = array_change_key_case($row_raw, CASE_LOWER);
 ?>
                     <tr>
                         <td><?= $no++; ?></td>
-                        <td><?= htmlspecialchars($row['nama_user']); ?></td>
-                        <td><?= htmlspecialchars($row['judul_buku']); ?></td>
+                        <td><?= htmlspecialchars($row['nama_user'] ?? ''); ?></td>
+                        <td><?= htmlspecialchars($row['judul_buku'] ?? ''); ?></td>
                         <td><?= date('d-m-Y', strtotime($row['tanggal_pinjam'])); ?></td>
                         <td><?= date('d-m-Y', strtotime($row['tanggal_kembali'])); ?></td>
                         <td>
@@ -62,7 +63,8 @@ if ($result):
         endif; ?>
                         </td>
                     </tr>
-                    <?php    endwhile;
+                    <?php
+    endwhile;
 endif;
 ?>
                 </tbody>

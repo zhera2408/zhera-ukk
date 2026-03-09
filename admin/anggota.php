@@ -22,14 +22,16 @@
 $no = 1;
 $query = "SELECT * FROM users ORDER BY id_user DESC";
 $result = mysqli_query($conn, $query);
-while ($row = mysqli_fetch_assoc($result)):
+while ($row_raw = mysqli_fetch_assoc($result)):
+    $row = array_change_key_case($row_raw, CASE_LOWER);
 ?>
                     <tr>
                         <td><?= $no++; ?></td>
-                        <td><?= htmlspecialchars($row['nama']); ?></td>
-                        <td><?= htmlspecialchars($row['username']); ?></td>
+                        <td><?= htmlspecialchars($row['nama'] ?? $row['name'] ?? ''); ?></td>
+                        <td><?= htmlspecialchars($row['username'] ?? ''); ?></td>
                         <td>
-                            <?php if ($row['role'] == 'admin'): ?>
+                            <?php $role = strtolower(trim($row['role'] ?? '')); ?>
+                            <?php if ($role == 'admin'): ?>
                                 <span class="badge badge-danger">Admin</span>
                             <?php
     else: ?>
@@ -38,8 +40,8 @@ while ($row = mysqli_fetch_assoc($result)):
     endif; ?>
                         </td>
                         <td>
-                            <a href="<?= base_url('admin/anggota_edit.php?id=' . $row['id_user']); ?>" class="btn btn-primary btn-sm" style="background-color: var(--accent-color);"><i class="fas fa-edit"></i> Edit</a>
-                            <a href="<?= base_url('admin/anggota_hapus.php?id=' . $row['id_user']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?')"><i class="fas fa-trash"></i> Hapus</a>
+                            <a href="<?= base_url('admin/anggota_edit.php?id=' . ($row['id_user'] ?? '')); ?>" class="btn btn-primary btn-sm" style="background-color: var(--accent-color);"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="<?= base_url('admin/anggota_hapus.php?id=' . ($row['id_user'] ?? '')); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus user ini?')"><i class="fas fa-trash"></i> Hapus</a>
                         </td>
                     </tr>
                     <?php
