@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="auth-card">
             <div class="auth-header">
                 <h1>Selamat Datang</h1>
-                <p>Silakan login untuk mengakses perpustakaan</p>
+                <p>Silakan Masuk ke Perpustakaan Digital</p>
             </div>
 
             <?php if ($error): ?>
