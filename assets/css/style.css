@@ -279,7 +279,7 @@ th {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f1f5f9;
+    background-color: var(--background-color);
 }
 
 .auth-card {

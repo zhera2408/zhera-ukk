@@ -48,7 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Perpustakaan Digital</title>
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.0'); ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="auth-container">
@@ -79,7 +80,7 @@ endif; ?>
                 <button type="submit" class="btn btn-primary">Masuk</button>
             </form>
              <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #64748b;">
-                Belum punya akun? <a href="<?= base_url('register.php'); ?>" style="color: #ebadfaff; text-decoration: none; font-weight: 600;">Daftar disini</a>
+                Belum punya akun? <a href="<?= base_url('register.php'); ?>" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Daftar disini</a>
             </div>
         </div>
     </div>
