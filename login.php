@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $_SESSION['user_id'] = $row['id_user'] ?? $row['id'] ?? null;
         $_SESSION['nama'] = $row['nama'] ?? $row['username'] ?? 'User';
-        $_SESSION['role'] = $row['role'] ?? 'user';
+        $_SESSION['role'] = isset($row['role']) ? strtolower(trim($row['role'])) : 'user';
 
         if ($_SESSION['role'] == 'admin') {
             header("Location: " . base_url('admin/index.php'));

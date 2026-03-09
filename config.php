@@ -73,8 +73,9 @@ function check_login()
 
 function check_admin()
 {
-    if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-        header("Location: " . base_url('index.php')); // Redirect to user dashboard or home
+    $role = isset($_SESSION['role']) ? strtolower(trim($_SESSION['role'])) : '';
+    if ($role !== 'admin') {
+        header("Location: " . base_url('index.php'));
         exit();
     }
 }
