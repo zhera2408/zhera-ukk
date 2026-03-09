@@ -8,7 +8,7 @@
         <p>Selamat datang di halaman administrator. Anda dapat mengelola data buku, user, dan peminjaman di sini.</p>
         
         <div class="stats-grid" style="margin-top: 2rem;">
-            <a href="<?= base_url('admin/anggota.php'); ?>" class="stat-card">
+            <a href="<?= base_url('admin/anggota.php'); ?>" class="stat-card" style="border-left-color: var(--primary-color);">
                 <div class="stat-info">
                     <h3>
                         <?php
@@ -29,7 +29,7 @@ echo $users_count;
                 </div>
             </a>
 
-            <a href="<?= base_url('admin/buku.php'); ?>" class="stat-card">
+            <a href="<?= base_url('admin/buku.php'); ?>" class="stat-card" style="border-left-color: var(--accent-color);">
                 <div class="stat-info">
                     <h3>
                         <?php
@@ -50,7 +50,7 @@ echo $books_count;
                 </div>
             </a>
 
-            <a href="<?= base_url('admin/peminjaman.php'); ?>" class="stat-card">
+            <a href="<?= base_url('admin/peminjaman.php'); ?>" class="stat-card" style="border-left-color: var(--warning-color);">
                 <div class="stat-info">
                     <h3>
                         <?php
@@ -67,11 +67,11 @@ echo $loans_count;
                     <p>Sedang Dipinjam</p>
                 </div>
                 <div class="stat-icon">
-                    <i class="fas fa-clock fa-2x" style="color: var(--warning-color, orange);"></i>
+                    <i class="fas fa-clock fa-2x" style="color: var(--warning-color);"></i>
                 </div>
             </a>
 
-            <a href="<?= base_url('admin/peminjaman.php'); ?>" class="stat-card">
+            <a href="<?= base_url('admin/peminjaman.php'); ?>" class="stat-card" style="border-left-color: var(--success-color);">
                 <div class="stat-info">
                     <h3>
                         <?php
