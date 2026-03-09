@@ -31,14 +31,14 @@ Saya telah menambahkan file `vercel.json` dan memperbarui `config.php` agar mend
     git push -u origin main
     ```
 
-## 3. Deployment ke Vercel
+### 3. Deployment ke Vercel
 1.  Login ke [Vercel](https://vercel.com/).
 2.  Klik **"Add New"** > **"Project"**.
 3.  Impor repositori dari GitHub Anda.
 4.  Di bagian **Environment Variables**, tambahkan variabel berikut:
     -   `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASS`, `DB_NAME`
     -   `BASE_URL`: URL Vercel Anda (misal: `https://peminjamanbuku-zhera.vercel.app/`).
-    -   `DB_SSL_CA`: (Opsional) Input sertifikat SSL Aiven jika diperlukan.
+    -   `DB_SSL_CA`: **(Opsional)** Salin isi teks dari file sertifikat CA Aiven (`ca.pem`) Anda dan tempel di sini. Kode di `config.php` akan otomatis menanganinya.
 5.  Klik **Deploy**.
 
 ## ☁️ Fitur Cloud-Ready
