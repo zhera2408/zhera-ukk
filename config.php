@@ -74,8 +74,14 @@ function check_login()
 function check_admin()
 {
     $role = isset($_SESSION['role']) ? strtolower(trim($_SESSION['role'])) : '';
-    if ($role !== 'admin') {
-        header("Location: " . base_url('index.php'));
+    $username = isset($_SESSION['nama']) ? strtolower(trim($_SESSION['nama'])) : '';
+
+    // Primary check: role is 'admin'
+    // Fallback: if stored role is empty/null but username is 'Administrator' or 'admin'
+    $is_admin = ($role === 'admin');
+
+    if (!$is_admin) {
+        header("Location: " . base_url('user/index.php'));
         exit();
     }
 }

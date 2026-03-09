@@ -25,9 +25,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Normalize column keys to lowercase to be case-insensitive
         $row = array_change_key_case($row_raw, CASE_LOWER);
 
+        $raw_role = $row['role'] ?? '';
+        $normalized_role = strtolower(trim($raw_role));
+
+        // Fallback: if role is empty but username is 'admin', treat as admin
+        if (empty($normalized_role) && strtolower(trim($row['username'] ?? '')) === 'admin') {
+            $normalized_role = 'admin';
+        }
+
         $_SESSION['user_id'] = $row['id_user'] ?? $row['id'] ?? null;
         $_SESSION['nama'] = $row['nama'] ?? $row['username'] ?? 'User';
-        $_SESSION['role'] = isset($row['role']) ? strtolower(trim($row['role'])) : 'user';
+        $_SESSION['role'] = $normalized_role ?: 'user';
 
         if ($_SESSION['role'] == 'admin') {
             header("Location: " . base_url('admin/index.php'));
