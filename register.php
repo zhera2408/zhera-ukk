@@ -45,39 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Perpustakaan Digital</title>
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css'); ?>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .auth-container {
-            background: linear-gradient(135deg, #f3b4ffff 0%, #efb0f1ff 100%);
-        }
-        .auth-card {
-            border: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: fadeIn 0.5s ease-out;
-        }
-        .auth-header h1 {
-            color: #f19febff;
-            font-weight: 800;
-        }
-        .btn-primary {
-            width: 100%;
-            padding: 0.8rem;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(226, 165, 238, 0.2);
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
 </head>
 <body>
     <div class="auth-container">
