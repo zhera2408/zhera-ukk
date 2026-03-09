@@ -10,7 +10,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 50px;">NO</th>
+                        <th style="width: 50px;">NO </th>
                         <th style="width: 100px;">COVER</th>
                         <th>JUDUL</th>
                         <th>PENGARANG</th>
