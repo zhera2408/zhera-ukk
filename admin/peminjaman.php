@@ -22,13 +22,20 @@
                 <tbody>
                     <?php
 $no = 1;
-$query = "SELECT transaksi.*, users.nama as nama_user, buku.judul as judul_buku 
-                              FROM transaksi 
-                              JOIN users ON transaksi.id_user = users.id_user 
-                              JOIN buku ON transaksi.id_buku = buku.id_buku 
-                              ORDER BY transaksi.id_transaksi DESC";
-$result = mysqli_query($conn, $query);
-while ($row = mysqli_fetch_assoc($result)):
+try {
+    $query = "SELECT transaksi.*, users.nama as nama_user, buku.judul as judul_buku 
+              FROM transaksi 
+              JOIN users ON transaksi.id_user = users.id_user 
+              JOIN buku ON transaksi.id_buku = buku.id_buku 
+              ORDER BY transaksi.id_transaksi DESC";
+    $result = mysqli_query($conn, $query);
+}
+catch (Exception $e) {
+    $result = false;
+}
+
+if ($result):
+    while ($row = mysqli_fetch_assoc($result)):
 ?>
                     <tr>
                         <td><?= $no++; ?></td>
@@ -40,23 +47,24 @@ while ($row = mysqli_fetch_assoc($result)):
                             <?php if ($row['status'] == 'dipinjam'): ?>
                                 <span class="badge badge-warning">Dipinjam</span>
                             <?php
-    else: ?>
+        else: ?>
                                 <span class="badge badge-success">Dikembalikan</span>
                             <?php
-    endif; ?>
+        endif; ?>
                         </td>
                         <td>
                             <?php if ($row['status'] == 'dipinjam'): ?>
                                 <a href="<?= base_url('admin/transaksi_kembali.php?id=' . $row['id_transaksi']); ?>" class="btn btn-success btn-sm" onclick="return confirm('Konfirmasi pengembalian buku?')" style="background-color: var(--success-color);"><i class="fas fa-check"></i> Kembalikan</a>
                             <?php
-    else: ?>
+        else: ?>
                                 <span style="color: var(--text-secondary); font-size: 0.9rem;">Selesai</span>
                             <?php
-    endif; ?>
+        endif; ?>
                         </td>
                     </tr>
-                    <?php
-endwhile; ?>
+                    <?php    endwhile;
+endif;
+?>
                 </tbody>
             </table>
         </div>

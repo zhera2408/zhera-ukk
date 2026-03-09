@@ -22,24 +22,30 @@ require_once 'header.php';
                 <tbody>
                     <?php
 $id_user = $_SESSION['user_id'];
+$table_name = 'transaksi';
 
-// Case-sensitivity and existence check for different server configurations
-$table_check = mysqli_query($conn, "SHOW TABLES LIKE 'transaksi'");
-if (mysqli_num_rows($table_check) == 0) {
-    $table_check_alt = mysqli_query($conn, "SHOW TABLES LIKE 'Transaksi'");
-    $table_name = (mysqli_num_rows($table_check_alt) > 0) ? 'Transaksi' : 'transaksi';
+try {
+    // Check if table exists in various cases
+    $table_check = mysqli_query($conn, "SHOW TABLES LIKE 'transaksi'");
+    if (mysqli_num_rows($table_check) == 0) {
+        $table_check_alt = mysqli_query($conn, "SHOW TABLES LIKE 'Transaksi'");
+        if (mysqli_num_rows($table_check_alt) > 0) {
+            $table_name = 'Transaksi';
+        }
+    }
+
+    $query_text = "SELECT t.*, b.judul 
+                  FROM $table_name t 
+                  LEFT JOIN buku b ON t.id_buku = b.id_buku 
+                  WHERE t.id_user = $id_user 
+                  ORDER BY t.id_transaksi DESC";
+
+    $result = mysqli_query($conn, $query_text);
 }
-else {
-    $table_name = 'transaksi';
+catch (Exception $e) {
+    $result = false;
+    error_log("Database Error in riwayat.php: " . $e->getMessage());
 }
-
-$query_text = "SELECT t.*, b.judul 
-                                  FROM $table_name t 
-                                  LEFT JOIN buku b ON t.id_buku = b.id_buku 
-                                  WHERE t.id_user = $id_user 
-                                  ORDER BY t.id_transaksi DESC";
-
-$result = @mysqli_query($conn, $query_text);
 $no = 1;
 
 if ($result && mysqli_num_rows($result) > 0):

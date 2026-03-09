@@ -12,7 +12,13 @@
                 <div class="stat-info">
                     <h3>
                         <?php
-$users_count = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM users"));
+try {
+    $q = mysqli_query($conn, "SELECT * FROM users");
+    $users_count = $q ? mysqli_num_rows($q) : 0;
+}
+catch (Exception $e) {
+    $users_count = 0;
+}
 echo $users_count;
 ?>
                     </h3>
@@ -27,7 +33,13 @@ echo $users_count;
                 <div class="stat-info">
                     <h3>
                         <?php
-$books_count = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buku"));
+try {
+    $q = mysqli_query($conn, "SELECT * FROM buku");
+    $books_count = $q ? mysqli_num_rows($q) : 0;
+}
+catch (Exception $e) {
+    $books_count = 0;
+}
 echo $books_count;
 ?>
                     </h3>
@@ -42,7 +54,13 @@ echo $books_count;
                 <div class="stat-info">
                     <h3>
                         <?php
-$loans_count = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM transaksi WHERE status='dipinjam'"));
+try {
+    $q = mysqli_query($conn, "SELECT * FROM transaksi WHERE status='dipinjam'");
+    $loans_count = $q ? mysqli_num_rows($q) : 0;
+}
+catch (Exception $e) {
+    $loans_count = 0;
+}
 echo $loans_count;
 ?>
                     </h3>
@@ -57,8 +75,13 @@ echo $loans_count;
                 <div class="stat-info">
                     <h3>
                         <?php
-$query = mysqli_query($conn, "SELECT * FROM transaksi");
-$total_transaksi = $query ? mysqli_num_rows($query) : 0;
+try {
+    $query = mysqli_query($conn, "SELECT * FROM transaksi");
+    $total_transaksi = $query ? mysqli_num_rows($query) : 0;
+}
+catch (Exception $e) {
+    $total_transaksi = 0;
+}
 echo $total_transaksi;
 ?>
                     </h3>
