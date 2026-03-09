@@ -10,14 +10,14 @@
             <table>
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Cover</th>
-                        <th>Judul</th>
-                        <th>Pengarang</th>
-                        <th>Penerbit</th>
-                        <th>Tahun</th>
-                        <th>Stok</th>
-                        <th>Aksi</th>
+                        <th style="width: 50px;">NO</th>
+                        <th style="width: 100px;">COVER</th>
+                        <th>JUDUL</th>
+                        <th>PENGARANG</th>
+                        <th>PENERBIT</th>
+                        <th style="width: 100px;">TAHUN</th>
+                        <th style="width: 80px;">STOK</th>
+                        <th style="width: 120px;">AKSI</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,28 +28,30 @@ $result = mysqli_query($conn, $query);
 while ($row = mysqli_fetch_assoc($result)):
 ?>
                     <tr>
-                        <td><?= $no++; ?></td>
-                        <td>
+                        <td style="vertical-align: middle;"><?= $no++; ?></td>
+                        <td style="vertical-align: middle;">
                             <?php if ($row['cover']): ?>
-                                <img src="<?= base_url('assets/img/' . htmlspecialchars($row['cover'])); ?>" alt="Cover" style="width: 50px; height: 75px; object-fit: cover; border-radius: 4px;">
+                                <img src="<?= base_url('assets/img/' . htmlspecialchars($row['cover'])); ?>" alt="Cover" style="width: 45px; height: 65px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                             <?php
     else: ?>
-                                <div style="width: 50px; height: 75px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 4px; color: #64748b; font-size: 0.8rem;">No Cover</div>
+                                <div style="width: 45px; height: 65px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; border-radius: 4px; color: #94a3b8; font-size: 0.7rem;">NO IMG</div>
                             <?php
     endif; ?>
                         </td>
-                        <td><?= htmlspecialchars($row['judul']); ?></td>
-                        <td><?= htmlspecialchars($row['pengarang']); ?></td>
-                        <td><?= htmlspecialchars($row['penerbit']); ?></td>
-                        <td><?= htmlspecialchars($row['tahun_terbit']); ?></td>
-                        <td>
-                            <span class="badge <?= $row['stok'] > 0 ? 'badge-success' : 'badge-danger'; ?>">
+                        <td style="vertical-align: middle; font-weight: 500;"><?= htmlspecialchars($row['judul']); ?></td>
+                        <td style="vertical-align: middle; color: var(--text-secondary);"><?= htmlspecialchars($row['pengarang']); ?></td>
+                        <td style="vertical-align: middle; color: var(--text-secondary);"><?= htmlspecialchars($row['penerbit']); ?></td>
+                        <td style="vertical-align: middle; color: var(--text-secondary);"><?= htmlspecialchars($row['tahun_terbit']); ?></td>
+                        <td style="vertical-align: middle;">
+                            <span class="badge" style="background: #dcfce7; color: #166534; padding: 0.4rem 0.8rem; border-radius: 50px; font-weight: 600;">
                                 <?= $row['stok']; ?>
                             </span>
                         </td>
-                        <td>
-                            <a href="<?= base_url('admin/buku_edit.php?id=' . $row['id_buku']); ?>" class="btn btn-primary btn-sm" style="background-color: var(--accent-color);"><i class="fas fa-edit"></i></a>
-                            <a href="<?= base_url('admin/buku_hapus.php?id=' . $row['id_buku']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus buku ini?')" style="background-color: var(--danger-color);"><i class="fas fa-trash"></i></a>
+                        <td style="vertical-align: middle;">
+                            <div style="display: flex; gap: 0.4rem;">
+                                <a href="<?= base_url('admin/buku_edit.php?id=' . $row['id_buku']); ?>" class="btn btn-sm" style="background-color: #0ea5e9; color: white; width: 32px; height: 32px; padding: 0;"><i class="fas fa-edit"></i></a>
+                                <a href="<?= base_url('admin/buku_hapus.php?id=' . $row['id_buku']); ?>" class="btn btn-sm" onclick="return confirm('Yakin ingin menghapus buku ini?')" style="background-color: #ef4444; color: white; width: 32px; height: 32px; padding: 0;"><i class="fas fa-trash"></i></a>
+                            </div>
                         </td>
                     </tr>
                     <?php
