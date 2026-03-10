@@ -35,9 +35,17 @@ $users = [
 ];
 
 foreach ($users as $u) {
-    $stmt = mysqli_prepare($conn, "INSERT INTO users (nama, username, password, role) VALUES (?, ?, ?, ?)");
-    mysqli_stmt_bind_param($stmt, "ssss", $u[0], $u[1], $u[2], $u[3]);
-    mysqli_stmt_execute($stmt);
+    $insert_fields = ['nama', 'username', 'password', 'role'];
+    $insert_values = ["'{$u[0]}'", "'{$u[1]}'", "'{$u[2]}'", "'{$u[3]}'"];
+    if (in_array('nama_lengkap', $columns)) {
+        $insert_fields[] = 'nama_lengkap';
+        $insert_values[] = "'{$u[0]}'";
+    }
+
+    $f_str = implode(',', $insert_fields);
+    $v_str = implode(',', $insert_values);
+
+    mysqli_query($conn, "INSERT INTO users ($f_str) VALUES ($v_str)");
 }
 
 echo "<h1>Data Berhasil Disinkronisasi!</h1>";

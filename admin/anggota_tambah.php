@@ -37,7 +37,20 @@ if (isset($_POST['tambah'])) {
             mysqli_query($conn, "ALTER TABLE users ADD `role` ENUM('admin','user') NOT NULL DEFAULT 'user'");
         }
 
-        $query = "INSERT INTO users ($nama_col, username, password, role) VALUES ('$nama', '$username', '$password', '$role')";
+        // Check for 'nama_lengkap' and include it to avoid default value constraint errors
+        $insert_fields = [$nama_col, 'username', 'password', 'role'];
+        $insert_values = ["'$nama'", "'$username'", "'$password'", "'$role'"];
+        if (in_array('nama_lengkap', $columns)) {
+            // Also insert into nama_lengkap if that column exists
+            if ($nama_col !== 'nama_lengkap') {
+                $insert_fields[] = 'nama_lengkap';
+                $insert_values[] = "'$nama'";
+            }
+        }
+        $fields_str = implode(', ', $insert_fields);
+        $values_str = implode(', ', $insert_values);
+
+        $query = "INSERT INTO users ($fields_str) VALUES ($values_str)";
         if (mysqli_query($conn, $query)) {
             echo "<script>alert('Data berhasil ditambahkan!'); window.location='" . base_url('admin/anggota.php') . "';</script>";
         }

@@ -50,12 +50,20 @@ if (isset($_POST['edit'])) {
         mysqli_query($conn, "ALTER TABLE users ADD `role` ENUM('admin','user') NOT NULL DEFAULT 'user'");
     }
 
+    // Check for 'nama_lengkap' and include it to avoid default value constraint errors
+    $update_set = "$nama_col='$nama', username='$username', role='$role'";
+    if (in_array('nama_lengkap', $columns)) {
+        if ($nama_col !== 'nama_lengkap') {
+            $update_set .= ", nama_lengkap='$nama'";
+        }
+    }
+
     if (!empty($_POST['password'])) {
         $password = md5($_POST['password']);
-        $query_update = "UPDATE users SET $nama_col='$nama', username='$username', password='$password', role='$role' WHERE id_user=$id";
+        $query_update = "UPDATE users SET $update_set, password='$password' WHERE id_user=$id";
     }
     else {
-        $query_update = "UPDATE users SET $nama_col='$nama', username='$username', role='$role' WHERE id_user=$id";
+        $query_update = "UPDATE users SET $update_set WHERE id_user=$id";
     }
 
     if (mysqli_query($conn, $query_update)) {
