@@ -45,6 +45,11 @@ if (isset($_POST['edit'])) {
         $nama_col = 'name';
     }
 
+    // Cek kolom 'role'
+    if (!in_array('role', $columns)) {
+        mysqli_query($conn, "ALTER TABLE users ADD `role` ENUM('admin','user') NOT NULL DEFAULT 'user'");
+    }
+
     if (!empty($_POST['password'])) {
         $password = md5($_POST['password']);
         $query_update = "UPDATE users SET $nama_col='$nama', username='$username', password='$password', role='$role' WHERE id_user=$id";

@@ -20,6 +20,11 @@ elseif (!in_array('nama', $columns)) {
     mysqli_query($conn, "ALTER TABLE users ADD `nama` VARCHAR(100) NOT NULL AFTER `id_user`");
 }
 
+// Cek kolom 'role'
+if (!in_array('role', $columns)) {
+    mysqli_query($conn, "ALTER TABLE users ADD `role` ENUM('admin','user') NOT NULL DEFAULT 'user'");
+}
+
 // Hapus data, ganti dengan yg baru persis localhost
 mysqli_query($conn, "TRUNCATE TABLE users");
 

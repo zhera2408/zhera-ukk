@@ -32,6 +32,11 @@ if (isset($_POST['tambah'])) {
             $nama_col = 'nama';
         }
 
+        // Cek kolom 'role'
+        if (!in_array('role', $columns)) {
+            mysqli_query($conn, "ALTER TABLE users ADD `role` ENUM('admin','user') NOT NULL DEFAULT 'user'");
+        }
+
         $query = "INSERT INTO users ($nama_col, username, password, role) VALUES ('$nama', '$username', '$password', '$role')";
         if (mysqli_query($conn, $query)) {
             echo "<script>alert('Data berhasil ditambahkan!'); window.location='" . base_url('admin/anggota.php') . "';</script>";
