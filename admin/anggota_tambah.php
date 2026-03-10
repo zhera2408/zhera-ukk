@@ -15,12 +15,29 @@ if (isset($_POST['tambah'])) {
         echo "<script>alert('Username sudah ada!');</script>";
     }
     else {
-        $query = "INSERT INTO users (nama, username, password, role) VALUES ('$nama', '$username', '$password', '$role')";
+        // Cek kolom di tabel users (Aiven mungkin pakai 'name', localhost pakai 'nama')
+        $col_result = mysqli_query($conn, "SHOW COLUMNS FROM users");
+        $columns = [];
+        while ($col_row = mysqli_fetch_assoc($col_result)) {
+            $columns[] = $col_row['Field'];
+        }
+
+        $nama_col = 'nama';
+        if (in_array('name', $columns) && !in_array('nama', $columns)) {
+            $nama_col = 'name';
+        }
+        elseif (!in_array('name', $columns) && !in_array('nama', $columns)) {
+            // Jika dua-duanya tidak ada, coba tambahkan 'nama' on the fly
+            mysqli_query($conn, "ALTER TABLE users ADD `nama` VARCHAR(100) NOT NULL AFTER `id_user`");
+            $nama_col = 'nama';
+        }
+
+        $query = "INSERT INTO users ($nama_col, username, password, role) VALUES ('$nama', '$username', '$password', '$role')";
         if (mysqli_query($conn, $query)) {
             echo "<script>alert('Data berhasil ditambahkan!'); window.location='" . base_url('admin/anggota.php') . "';</script>";
         }
         else {
-            echo "<script>alert('Gagal menambahkan data!');</script>";
+            echo "<script>alert('Gagal menambahkan data " . mysqli_error($conn) . " !');</script>";
         }
     }
 }

@@ -33,12 +33,24 @@ if (isset($_POST['edit'])) {
         }
     }
 
+    // Dinamis cek kolom (Aiven vs Localhost)
+    $col_result = mysqli_query($conn, "SHOW COLUMNS FROM users");
+    $columns = [];
+    while ($col_row = mysqli_fetch_assoc($col_result)) {
+        $columns[] = $col_row['Field'];
+    }
+
+    $nama_col = 'nama';
+    if (in_array('name', $columns) && !in_array('nama', $columns)) {
+        $nama_col = 'name';
+    }
+
     if (!empty($_POST['password'])) {
         $password = md5($_POST['password']);
-        $query_update = "UPDATE users SET nama='$nama', username='$username', password='$password', role='$role' WHERE id_user=$id";
+        $query_update = "UPDATE users SET $nama_col='$nama', username='$username', password='$password', role='$role' WHERE id_user=$id";
     }
     else {
-        $query_update = "UPDATE users SET nama='$nama', username='$username', role='$role' WHERE id_user=$id";
+        $query_update = "UPDATE users SET $nama_col='$nama', username='$username', role='$role' WHERE id_user=$id";
     }
 
     if (mysqli_query($conn, $query_update)) {

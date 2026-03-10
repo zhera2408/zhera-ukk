@@ -1,11 +1,26 @@
 <?php
 require_once '../config.php';
 
-// Jika tidak ada koneksi, batalkan
 if (!$conn) {
     die("Koneksi gagal");
 }
 
+// Cek kolom di tabel users
+$result = mysqli_query($conn, "SHOW COLUMNS FROM users");
+$columns = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $columns[] = $row['Field'];
+}
+
+// Jika ada "name" tapi tidak ada "nama", ubah namanya
+if (in_array('name', $columns) && !in_array('nama', $columns)) {
+    mysqli_query($conn, "ALTER TABLE users CHANGE `name` `nama` VARCHAR(100) NOT NULL");
+}
+elseif (!in_array('nama', $columns)) {
+    mysqli_query($conn, "ALTER TABLE users ADD `nama` VARCHAR(100) NOT NULL AFTER `id_user`");
+}
+
+// Hapus data, ganti dengan yg baru persis localhost
 mysqli_query($conn, "TRUNCATE TABLE users");
 
 $users = [
